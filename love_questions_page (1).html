@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Fabiola ❤️</title>
+
+<style>
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#ff6a88,#ff99ac);
+height:100vh;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+max-width:420px;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,.25);
+position:relative;
+z-index:2;
+}
+
+h2{margin-top:0;color:#ff2e63}
+
+button{
+margin:10px;
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#ff4d6d;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:.2s;
+}
+
+button:hover{transform:scale(1.05);opacity:.9}
+
+.progress{
+height:18px;
+background:#eee;
+border-radius:10px;
+margin-top:20px;
+overflow:hidden;
+}
+
+.bar{
+height:100%;
+width:0%;
+background:#ff4d6d;
+transition:width .5s;
+}
+
+.heart{
+position:absolute;
+color:#ff4d6d;
+animation:float 6s linear infinite;
+opacity:.7;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) scale(0.5);opacity:0}
+50%{opacity:.8}
+100%{transform:translateY(-10vh) scale(1.2);opacity:0}
+}
+
+.final{
+font-size:26px;
+font-weight:bold;
+color:#ff2e63;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.1)}
+100%{transform:scale(1)}
+}
+
+.small{
+font-size:14px;
+color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2 id="title">Para Fabiola ❤️</h2>
+<p id="question">Hola Fabiola… Juan Carlos tiene algo especial para ti 🥺💖</p>
+
+<div id="buttons">
+<button onclick="start()">Empezar ❤️</button>
+</div>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<p id="percent">0%</p>
+<p class="small">Hecho con amor por Juan Carlos 💌</p>
+</div>
+
+<script>
+
+const questions=[
+"Fabiola… ¿te gusta hablar con Juan Carlos todos los días? 💬❤️",
+"¿Piensas en él cuando no están juntos? 🥺",
+"¿Te hace feliz Juan Carlos? 😊",
+"¿Te gusta pasar tiempo con él? ⏳❤️",
+"¿Te imaginas un futuro con Juan Carlos? ✨",
+"¿Sientes algo especial por él? 💖",
+"¿Crees que hacen una pareja bonita? 😍",
+"¿Lista para lo más importante...? ❤️"
+];
+
+let i=0;
+
+function start(){
+ showQuestion();
+}
+
+function showQuestion(){
+
+ document.getElementById("question").innerText=questions[i];
+
+ document.getElementById("buttons").innerHTML=`
+ <button onclick="answer()">Sí ❤️</button>
+ <button onclick="answer()">Mucho 😍</button>
+ `;
+
+ let percent=Math.floor((i/questions.length)*100);
+ document.getElementById("bar").style.width=percent+"%";
+ document.getElementById("percent").innerText=percent+"%";
+
+}
+
+function answer(){
+ i++;
+
+ if(i<questions.length){
+ showQuestion();
+ }
+ else{
+
+ document.getElementById("bar").style.width="100%";
+ document.getElementById("percent").innerText="100%";
+
+ document.getElementById("question").innerHTML="💖 Resultado final 💖";
+
+ document.getElementById("buttons").innerHTML=`
+ <button onclick="finalStep()">Ver resultado ❤️</button>
+ `;
+ }
+}
+
+function finalStep(){
+ document.getElementById("question").innerHTML="<div class='final'>Fabiola… yo ya lo sabía ❤️🥺</div><br><div>Juan Carlos te ama muchísimo 💖</div>";
+
+ document.getElementById("buttons").innerHTML=`
+ <button onclick="proposal()">Continuar 💍</button>
+ `;
+}
+
+function proposal(){
+ document.getElementById("question").innerHTML="<div class='final'>Fabiola… ¿quieres ser mi novia? 💍❤️</div>";
+
+ document.getElementById("buttons").innerHTML=`
+ <button onclick="yes()">Sí quiero 😍❤️</button>
+ `;
+}
+
+function yes(){
+ document.getElementById("question").innerHTML="<div class='final'>Ahora oficialmente eres la novia de Juan Carlos ❤️🥺</div>";
+ document.getElementById("buttons").innerHTML="";
+}
+
+function createHeart(){
+const heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove()},6000);
+}
+
+setInterval(createHeart,500);
+
+</script>
+
+</body>
+</html>
